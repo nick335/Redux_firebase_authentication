@@ -1,16 +1,20 @@
-import * as firebase from "firebase/app"
-import 'firebase/compat/auth';
+// import firebase from 'firebase/compat/app';
+// import 'firebase/compat/auth';
 // import 'firebase/compat/firestore';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 
-const app = firebase.initializeApp({
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId : process.env.REACT_APP_FIREBASE_APP_ID,
-})
+const firebaseConfig = {
+  apiKey: "AIzaSyB-9UPBqTUDtXUdjphSCVdkO6SOh_oMgYQ",
+  authDomain: "redux-auth-development.firebaseapp.com",
+  projectId: "redux-auth-development",
+  storageBucket: "redux-auth-development.appspot.com",
+  messagingSenderId: "837196610279",
+  appId: "1:837196610279:web:e2abc312f212c5cb1b0042"
+};
 
-export const auth = app.auth();
+const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
 export default app;
