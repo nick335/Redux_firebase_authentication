@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { auth } from "../../../firebase";
+import { updateEmail, updatePassword } from "firebase/auth";
+import { auth } from "../../../firebase";
 
 const initialState = {
     currentUser: '',
@@ -12,9 +13,9 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCurrentUser: (state, action) => {
-      const user = action.payload.user
-      const userdata = action.payload.userdata
-      state.userData = userdata
+      const user = action.payload.userEmail
+      // const userdata = action.payload.userData
+      // state.userData = userdata
       state.currentUser = user
       console.log(state.currentUser)
     },
@@ -22,16 +23,16 @@ const authSlice = createSlice({
       state.currentUser = ''
       state.userData={}
     },
-    updateEmail: (state, action) => {
+    updateemail: (state, action) => {
       const email = action.payload
-      return state.userData.updateEmail(email)
+      return updateEmail(auth.currentUser, email)
     },
-    updatePassword: (state, action) => {
+    updatepassword: (state, action) => {
       const password = action.payload
-      return state.userData.updatePassword(password)
+      return updatePassword(auth.currentUser, password)
     }
   }
 })
 
 export default authSlice.reducer;
-export const {  setCurrentUser, logoutCurrentUser, updateEmail, updatePassword } = authSlice.actions
+export const {  setCurrentUser, logoutCurrentUser, updateemail, updatepassword } = authSlice.actions

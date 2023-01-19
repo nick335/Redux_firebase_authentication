@@ -36,11 +36,12 @@ export default function SignUp() {
     setError('')
     setLoading(false)
     createUserWithEmailAndPassword(auth, email, password).then((response) => {
-      const user = response.user.email
-      const userData = response.user
-      dispatch((setCurrentUser({user, userData})))
+      // const user = response.user.email
+      // const userData = response.user
+      // dispatch((setCurrentUser({user, userData})))
       navigate("/")
     }).catch((error) => {
+      console.log(error)
       setError(error.messsage)
     })
 

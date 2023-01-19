@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
-import { setCurrentUser, updatePassword, updateEmail } from '../store/features/auth/authSlice';
+import { setCurrentUser, updatepassword, updateemail } from '../store/features/auth/authSlice';
 export default function UpdateProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,17 +29,17 @@ export default function UpdateProfile() {
      return setError('Passwords do not match')      
     }
     if(email !== currentUser){
-      promises.push(dispatch(updateEmail(email)))
+      promises.push(dispatch(updateemail(email)))
     }
     if(passwordRef.current.value){
-      promises.push(dispatch(updatePassword(password)))
+      promises.push(dispatch(updatepassword(password)))
     }
     Promise.all(promises).then(() => {
       // console.log(response)
       // const user = response.user.email
       // const userData = response.user
       // dispatch((setCurrentUser({user, userData})))
-      // navigate("/")
+      
     }).catch((error) => {
       console.log(error)
       setError("Failed to update account")

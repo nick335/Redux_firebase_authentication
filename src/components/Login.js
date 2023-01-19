@@ -3,7 +3,7 @@ import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { setCurrentUser } from '../store/features/auth/authSlice'
 import { useNavigate, Link } from 'react-router-dom'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { auth } from '../firebase'
 
 export default function Login() {
@@ -23,15 +23,24 @@ export default function Login() {
     setError('')
     setLoading(false)
     signInWithEmailAndPassword(auth, email, password).then((response) => {
-      const user = response.user.email
-      const userData = response.user
-      dispatch((setCurrentUser({user, userData})))
+      // const user = response.user.email
+      // const userData = response.user
+      // dispatch((setCurrentUser({user, userData})))
       navigate("/")
     }).catch((error) => {
+      console.log(error)
       setError(error.messsage)
     })
 
     setLoading(false)
+  }
+  function GoogleSignin(){
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider).then((result) => {
+
+    }).catch((error) =>{
+      console.log(error)
+    })
   }
 
   return (
@@ -51,6 +60,7 @@ export default function Login() {
             </Form.Group>
             <Button disabled={loading}  className='w-100' type='submit' >Sign Up</Button>
           </Form>
+          <Button disabled={loading}  className='w-100' onClick={GoogleSignin} >log in with Goggle </Button>
         </Card.Body>
       </Card>
       <div className='w-100 text-center mt-2' >
